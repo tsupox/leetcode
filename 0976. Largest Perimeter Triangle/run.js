@@ -2,6 +2,9 @@
  * @param {number[]} nums
  * @return {number}
  * @see https://leetcode.com/problems/largest-perimeter-triangle/
+ *
+ * Runtime: 160 ms, faster than 55.10% of JavaScript online submissions for Largest Perimeter Triangle.
+* Memory Usage: 45.2 MB, less than 84.71% of JavaScript online submissions for Largest Perimeter Triangle.
  */
 var largestPerimeter = function (nums) {
   //console.log(nums.length)
@@ -15,16 +18,13 @@ var largestPerimeter = function (nums) {
     )
   }
 
+  //desc
   nums = nums.sort((num1, num2) => num2 - num1)
 
-  for (var i = 0; i < nums.length; i++) {
-    for (var j = i + 1; j < nums.length; j++) {
-      for (var k = j + 1; k < nums.length; k++) {
-        if (isTriangle(nums[i], nums[j], nums[k])) {
-          let sum = nums[i] + nums[j] + nums[k]
-          if (sum > 0) return sum
-        }
-      }
+  for (var i = 0; i < nums.length - 2; i++) {
+    if (isTriangle(nums[i], nums[i + 1], nums[i + 2])) {
+      let sum = nums[i] + nums[i + 1] + nums[i + 2]
+      if (sum > 0) return sum
     }
   }
   return 0;
