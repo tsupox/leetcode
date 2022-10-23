@@ -8,21 +8,31 @@
  * 1 - めっちゃゴリゴリ書いたの
  * Runtime: 157 ms, faster than 5.13% of JavaScript online submissions for Merge Two Sorted Lists.
  * Memory Usage: 46.4 MB, less than 5.86% of JavaScript online submissions for Merge Two Sorted Lists.
- *
- * 2 - Discuss を見て再帰にしたの
- * Runtime: 124 ms, faster than 25.67% of JavaScript online submissions for Merge Two Sorted Lists.
- * Memory Usage: 44 MB, less than 77.57% of JavaScript online submissions for Merge Two Sorted Lists.
  */
 var mergeTwoLists = function (list1, list2) {
-  if (!list1) return list2
-  if (!list2) return list1
-  if (list1.val <= list2.val) {
-    list1.next = mergeTwoLists(list1.next, list2)
-    return list1
-  } else {
-    list2.next = mergeTwoLists(list1, list2.next)
-    return list2
+  let sorted = []
+  while (list1 != null || list2 != null) {
+    if (list2 == null) {
+      sorted.push(list1.val)
+      list1 = list1.next ? list1.next : null
+    } else if (list1 == null) {
+      sorted.push(list2.val)
+      list2 = list2.next ? list2.next : null
+    } else if (list1.val <= list2.val) {
+      sorted.push(list1.val)
+      list1 = list1.next ? list1.next : null
+    } else {
+      sorted.push(list2.val)
+      list2 = list2.next ? list2.next : null
+    }
   }
+
+  console.log(sorted)
+  let result = null
+  for (const dig in sorted.reverse()) {
+    result = new ListNode(sorted[dig], result)
+  }
+  return result
 };
 
 //-----
